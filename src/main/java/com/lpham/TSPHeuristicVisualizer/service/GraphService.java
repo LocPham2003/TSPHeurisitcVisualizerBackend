@@ -13,6 +13,6 @@ public class GraphService {
 
     public Graph generateGraph() {
         GraphRepository graph = new GraphRepository(graphAttributes.numCities(), graphAttributes.boundaries());
-        return new Graph(graph.getCities(), graph.getDistance());
+        return new Graph(graph.getCities());
     }
 }

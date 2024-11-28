@@ -5,11 +5,11 @@ import com.lpham.TSPHeuristicVisualizer.entities.City;
 
 import java.util.ArrayList;
 
-public class Graph {
-    @JsonProperty("cities")
-    private ArrayList<City> cities;
+public class Solution {
+    @JsonProperty("solution")
+    private ArrayList<City> solution;
 
-    public Graph(ArrayList<City> cities) {
-        this.cities = cities;
+    public Solution(ArrayList<City> solution) {
+        this.solution = solution;
     }
 }

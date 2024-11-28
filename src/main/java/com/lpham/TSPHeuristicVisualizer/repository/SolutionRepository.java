@@ -1,31 +1,35 @@
 package com.lpham.TSPHeuristicVisualizer.repository;
 
 
+import com.lpham.TSPHeuristicVisualizer.entities.City;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
 public class SolutionRepository {
-    private int numNodes;
+    private ArrayList<City> cities;
 
-    public SolutionRepository(int numNodes) {
-        this.numNodes = numNodes;
+    public SolutionRepository(ArrayList<City> cities) {
+        this.cities = cities;
     }
 
     // Make a solution and solution must be valid (travelled through all nodes)
-    public ArrayList<Integer> getSolution() {
+    public ArrayList<City> getSolution() {
         // Since we are assuming a complete graph, generating a random sequence of node indices should suffice
         HashSet<Integer> visited = new HashSet<>();
-        ArrayList<Integer> solution = new ArrayList<>();
+        ArrayList<City> solution = new ArrayList<>();
 
-        while (visited.size() != numNodes) {
-            int nextCityIndex = new Random().nextInt(numNodes);
+        int numCities = cities.size();
+
+        while (visited.size() != numCities) {
+            int nextCityIndex = new Random().nextInt(numCities);
             while (visited.contains(nextCityIndex)) {
-                nextCityIndex = new Random().nextInt(numNodes);
+                nextCityIndex = new Random().nextInt(numCities);
             }
 
             visited.add(nextCityIndex);
-            solution.add(nextCityIndex);
+            solution.add(this.cities.get(nextCityIndex));
         }
 
         return solution;
