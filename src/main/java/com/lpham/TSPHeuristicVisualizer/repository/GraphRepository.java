@@ -28,12 +28,12 @@ public class GraphRepository {
     public void generateDistance() {
         // Generate the points
         for (int i = 0; i < numNodes; i++) {
-            int x = new Random().nextInt(boundaries[0] - boundaries[1]);
-            int y = new Random().nextInt(boundaries[0] - boundaries[1]);
+            int x = new Random().nextInt(boundaries[0]);
+            int y = new Random().nextInt(boundaries[1]);
 
             while (generatedX.contains(x) && generatedY.contains(y)) {
-                x = new Random().nextInt(boundaries[0] - boundaries[1]);
-                y = new Random().nextInt(boundaries[0] - boundaries[1]);
+                x = new Random().nextInt(boundaries[0]);
+                y = new Random().nextInt(boundaries[1]);
             }
 
             generatedX.add(x);
