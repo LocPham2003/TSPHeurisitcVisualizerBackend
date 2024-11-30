@@ -10,17 +10,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.lpham.TSPHeuristicVisualizer.Constants.AVAILABLE_ALGO_TYPES;
+
 @RestController
 @RequestMapping("/solution")
 public class SolutionController {
     @PostMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Solution> getSolution(@RequestBody SolutionAttributes solutionAttributes) {
+    public ResponseEntity<Object> getSolution(@RequestBody SolutionAttributes solutionAttributes) {
+        if (!AVAILABLE_ALGO_TYPES.contains(solutionAttributes.algoType())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid algorithm type");
+        }
         SolutionService solutionService = new SolutionService(solutionAttributes);
-        return new ResponseEntity<>(solutionService.generateSolution(), HttpStatus.OK);
-    }
-
-    @GetMapping("/index")
-    public String index() {
-        return "Greetings from solution!";
+        return ResponseEntity.status(HttpStatus.OK).body(solutionService.generateSolution());
     }
 }

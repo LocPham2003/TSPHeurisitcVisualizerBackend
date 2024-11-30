@@ -12,7 +12,7 @@ public class SolutionService {
     }
 
     public Solution generateSolution() {
-        SolutionRepository solutionRepository = new SolutionRepository(this.solutionAttribute.cities());
+        SolutionRepository solutionRepository = new SolutionRepository(this.solutionAttribute.cities(), this.solutionAttribute.algoType());
         return new Solution(solutionRepository.getSolution());
     }
 

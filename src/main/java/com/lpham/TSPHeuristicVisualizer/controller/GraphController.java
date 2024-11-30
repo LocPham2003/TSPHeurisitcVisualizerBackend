@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class GraphController {
 
     @PostMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Graph> getGraph(@RequestBody GraphAttributes graphAttributes) {
+    public ResponseEntity<Object> getGraph(@RequestBody GraphAttributes graphAttributes) {
+        if (graphAttributes.numCities() > 100) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Number of cities exceeds 100");
+        }
         GraphService graphService = new GraphService(graphAttributes);
-        return new ResponseEntity<>(graphService.generateGraph(), HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(graphService.generateGraph());
     }
 
     @GetMapping("/index")
