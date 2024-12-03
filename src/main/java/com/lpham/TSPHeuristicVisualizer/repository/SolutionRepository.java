@@ -2,7 +2,9 @@ package com.lpham.TSPHeuristicVisualizer.repository;
 
 
 import com.lpham.TSPHeuristicVisualizer.algorithms.*;
+import com.lpham.TSPHeuristicVisualizer.dto.Solution;
 import com.lpham.TSPHeuristicVisualizer.entities.City;
+import com.lpham.TSPHeuristicVisualizer.entities.Parameter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,12 +13,14 @@ import java.util.Random;
 public class SolutionRepository {
     private ArrayList<City> cities;
     private String algoType;
-    public SolutionRepository(ArrayList<City> cities, String algoType) {
+    private ArrayList<Parameter> parameters;
+    public SolutionRepository(ArrayList<City> cities, String algoType, ArrayList<Parameter> parameters) {
         this.cities = cities;
         this.algoType = algoType;
+        this.parameters = parameters;
     }
 
-    public ArrayList<City> initializeSolution() {
+    private ArrayList<City> initializeSolution() {
         // Since we are assuming a complete graph, generating a random sequence of node indices should suffice
         HashSet<Integer> visited = new HashSet<>();
         ArrayList<City> solution = new ArrayList<>();
@@ -37,16 +41,16 @@ public class SolutionRepository {
     }
 
     // Make a solution and solution must be valid (travelled through all nodes)
-    public ArrayList<City> getSolution() {
-        ArrayList<City> initialSolution = this.initializeSolution();
+    public Solution getSolution() {
+        ArrayList<City> initialSolution = initializeSolution();
 
         return switch (this.algoType) {
-            case "ls" -> new LocalSearch(initialSolution).solveSolution();
-            case "ts" -> new TabuSearch(initialSolution).solveSolution();
-            case "ac" -> new AntColony(initialSolution).solveSolution();
-            case "sa" -> new SimulatedAnnealing(initialSolution).solveSolution();
-            case "pso" -> new ParticleSwarm(initialSolution).solveSolution();
-            default -> new ArrayList<>();
+            case "ls" -> new LocalSearch(initialSolution, this.parameters).solveSolution();
+            case "ts" -> new TabuSearch(initialSolution, this.parameters).solveSolution();
+            case "ac" -> new AntColony(initialSolution, this.parameters).solveSolution();
+            case "sa" -> new SimulatedAnnealing(initialSolution, this.parameters).solveSolution();
+            case "pso" -> new ParticleSwarm(initialSolution, this.parameters).solveSolution();
+            default -> new Solution(new ArrayList<>(), 0);
         };
     }
 

@@ -8,8 +8,11 @@ import java.util.ArrayList;
 public class Solution {
     @JsonProperty("solution")
     private ArrayList<City> solution;
+    @JsonProperty("cost")
+    private double cost;
 
-    public Solution(ArrayList<City> solution) {
+    public Solution(ArrayList<City> solution, double cost) {
         this.solution = solution;
+        this.cost = cost;
     }
 }

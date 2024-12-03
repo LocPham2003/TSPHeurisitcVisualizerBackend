@@ -1,9 +1,7 @@
 package com.lpham.TSPHeuristicVisualizer.algorithms;
 
-import com.lpham.TSPHeuristicVisualizer.entities.City;
-
-import java.util.ArrayList;
+import com.lpham.TSPHeuristicVisualizer.dto.Solution;
 
 public interface AlgorithmTemplate {
-    ArrayList<City> solveSolution();
+    Solution solveSolution();
 }
