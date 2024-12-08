@@ -12,21 +12,21 @@ import static com.lpham.TSPHeuristicVisualizer.Constants.AVAILABLE_ALGO_TYPES;
 import static com.lpham.TSPHeuristicVisualizer.Utils.checkParametersValidity;
 
 @RestController
-@RequestMapping("/solution")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SolutionController {
-    @PostMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Object> getSolution(@RequestBody SolutionAttribute solutionAttribute) {
-        if (!AVAILABLE_ALGO_TYPES.contains(solutionAttribute.algoType())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid algorithm type");
-        }
-
-        if (!checkParametersValidity(solutionAttribute.algoType(), solutionAttribute.parameters())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid parameters for provided algorithm");
-        }
-
-        SolutionService solutionService = new SolutionService(solutionAttribute);
-        return ResponseEntity.status(HttpStatus.OK).body(solutionService.generateSolution());
-    }
+//    @PostMapping(value = "/", produces = "application/json")
+//    public ResponseEntity<Object> getSolution(@RequestBody SolutionAttribute solutionAttribute) {
+//        if (!AVAILABLE_ALGO_TYPES.contains(solutionAttribute.algoType())) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid algorithm type");
+//        }
+//
+//        if (!checkParametersValidity(solutionAttribute.algoType(), solutionAttribute.parameters())) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid parameters for provided algorithm");
+//        }
+//
+//        SolutionService solutionService = new SolutionService(solutionAttribute);
+//        return ResponseEntity.status(HttpStatus.OK).body(solutionService.generateSolution());
+//    }
 
     @MessageMapping("/cities")
     @SendTo("topic/solution")
@@ -38,6 +38,8 @@ public class SolutionController {
         if (!checkParametersValidity(solutionAttribute.algoType(), solutionAttribute.parameters())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid parameters for provided algorithm");
         }
+
+        System.out.println();
 
         SolutionService solutionService = new SolutionService(solutionAttribute);
         return ResponseEntity.status(HttpStatus.OK).body(solutionService.generateSolution());

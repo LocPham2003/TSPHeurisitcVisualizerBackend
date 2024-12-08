@@ -10,6 +10,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/graph")
 public class GraphController {
 
